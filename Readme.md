@@ -7,12 +7,14 @@ Se realiza una aplicación interactiva desarrollada con Streamlit. Su base es el
 
 Permite conocer el clima actual de prácticamente cualquier ciudad del mundo, en cuestión de segundos.
 Interacción natural: el chatbot entiende consultas escritas en español y responde de forma clara, cercana y amigable.
-Asesor de vestimenta: según la temperatura y el tipo de clima 
-Interfaz moderna: la aplicación cuenta con una interfaz limpia e intuitiva construida completamente con Streamlit, sin necesidad de un backend complejo.
+
+Ofrece una interacción natural y fluida, gracias a la integración con Ollama y Llama3, que genera respuestas conversacionales en español basadas en datos reales.
+El chatbot entiende consultas escritas en lenguaje natural y puede recordar la última ciudad mencionada para ofrecer respuestas más contextuales y continuas.
+Actúa también como asesor de vestimenta, sugiriendo qué tipo de ropa usar según la temperatura y las condiciones climáticas (lluvia, viento, calor o frío).
+Además, cuenta con una interfaz moderna, limpia e intuitiva, desarrollada completamente con Streamlit.
 
 ## Proximas actualizaciones
 
-Integrar reconocimiento de lenguaje natural (NLP) para detectar ciudades automáticamente dentro de frases complejas.
 Mostrar pronósticos extendidos de varios días.
 Incorporar un sistema de almacenamiento de consultas para estadísticas o seguimiento.
 Añadir soporte multilingüe (español / inglés).
@@ -30,21 +32,16 @@ An interactive application developed with Streamlit. Its core functionality is b
 ## Main Features
 
 Allows users to check the current weather in virtually any city in the world within seconds.
-
 Natural interaction: the chatbot understands questions written in Spanish and responds clearly and naturally.
 
-Clothing advisor: suggests appropriate clothing based on temperature and weather conditions.
-
-Modern interface: features a clean and intuitive design built entirely with Streamlit, without the need for a complex backend.
-
+It offers a natural and fluid interaction, thanks to the integration with Ollama and Llama3, which generates conversational responses in Spanish based on real data.
+The chatbot understands queries written in natural language and can remember the last mentioned city to provide more contextual and continuous responses.
+It also acts as a clothing advisor, suggesting what type of clothing to wear based on the temperature and weather conditions (rain, wind, heat, or cold).
+Additionally, it features a modern, clean, and intuitive interface, fully developed with Streamlit.
 ## Upcoming Updates
 
-Integrate Natural Language Processing (NLP) to automatically detect city names within complex phrases.
-
 Display extended multi-day weather forecasts.
-
 Implement a query storage system for statistics and tracking.
-
 Add multilingual support (Spanish / English).
 
 ## Images
