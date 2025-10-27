@@ -1,13 +1,14 @@
-# src/asistente.py
+# Librerias 
 import re
 import logging
-from datetime import datetime, timedelta
-from typing import Tuple, Optional
 import requests
+
 from pathlib import Path
 from dotenv import load_dotenv
+from typing import Tuple, Optional
+from datetime import datetime, timedelta
 from src.ollama_client import generar_respuesta_ollama
-from src.clima import extraer_ciudad, recomendacion_ropa  # usa tu clima.py para partes útiles
+from src.clima import extraer_ciudad, recomendacion_ropa  
 
 # logging
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
@@ -18,7 +19,7 @@ load_dotenv(dotenv_path)
 import os
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
-# Helpers de OpenWeather (current + forecast)
+# Helpers de OpenWeather
 def fetch_current(ciudad: str) -> Optional[dict]:
     url = "http://api.openweathermap.org/data/2.5/weather"
     params = {"q": ciudad, "appid": API_KEY, "units": "metric", "lang": "es"}
@@ -31,9 +32,6 @@ def fetch_current(ciudad: str) -> Optional[dict]:
         return None
 
 def fetch_forecast(ciudad: str) -> Optional[dict]:
-    """
-    Usa /data/2.5/forecast (5-day / 3h) y devuelve JSON para procesar.
-    """
     url = "http://api.openweathermap.org/data/2.5/forecast"
     params = {"q": ciudad, "appid": API_KEY, "units": "metric", "lang": "es"}
     try:
@@ -45,7 +43,6 @@ def fetch_forecast(ciudad: str) -> Optional[dict]:
         return None
 
 def resumen_actual_desde_json(datos: dict) -> str:
-    """Extrae un resumen legible del JSON current."""
     if not datos:
         return "No hay datos actuales."
     try:
@@ -59,10 +56,6 @@ def resumen_actual_desde_json(datos: dict) -> str:
         return "No se pudieron parsear los datos actuales."
 
 def resumen_manana_from_forecast(datos: dict) -> Optional[str]:
-    """
-    Busca en forecast el bloque que corresponda a 'mañana' (12:00 local si es posible).
-    Devuelve un string resumen o None si no lo encuentra.
-    """
     if not datos or "list" not in datos:
         return None
 

@@ -1,17 +1,14 @@
-# src/ollama_client.py
-import subprocess
+# Librerias
 import logging
+import subprocess
 from typing import Optional
 
 logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 
 
 def generar_respuesta_ollama(prompt: str, modelo: str = "llama3") -> str:
-    """
-    Llama a Ollama localmente pasando `prompt` por stdin.
-    Devuelve la salida como texto.
-    Si falla, devuelve una cadena vacía para que el caller haga fallback.
-    """
+
+    # Llama a Ollama localmente pasando `prompt` por stdin.
     try:
         logging.info("Enviando prompt a Ollama...")
         # Usamos Popen y comunicamos por stdin; forzamos encoding utf-8

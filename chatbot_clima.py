@@ -1,11 +1,14 @@
 
-import sys
+# Librerias
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
-
+import sys
 import streamlit as st
+
 from src.clima import obtener_clima
 from src.asistente import procesar_mensaje
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
+
 
 st.set_page_config(page_title="Chatbot del Clima 🌤️", page_icon="⛅")
 
@@ -37,13 +40,13 @@ if entrada:
         respuesta, ciudad_detectada = procesar_mensaje(
             entrada, st.session_state.get("ultima_ciudad")
         )
-    
+
         # 🧠 Guardamos la última ciudad si se detectó una nueva
         if ciudad_detectada:
             st.session_state.ultima_ciudad = ciudad_detectada
-    
+
         # 💾 Guardamos el mensaje en el historial
         st.session_state.mensajes.append({"usuario": False, "texto": respuesta})
-    
+
         # 🗨️ Mostramos la respuesta
         st.write(respuesta)

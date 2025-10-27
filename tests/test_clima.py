@@ -79,8 +79,6 @@ def test_recomendacion_ropa():
     assert "cortavientos" in resultado
 
 
-
-
 # Test de errores de API
 def test_obtener_clima_error(monkeypatch):
     class MockResponseError:

@@ -1,16 +1,14 @@
-# src/clima.py
+# Librerias
 import os
 import re
-import requests
 import spacy
 import logging
+import requests
+
 from dotenv import load_dotenv
 from functools import lru_cache
 from requests.exceptions import RequestException, HTTPError
 
-# ---------------------------
-# CONFIGURACIÓN INICIAL
-# ---------------------------
 
 # Cargar variables de entorno (.env)
 load_dotenv()
@@ -37,15 +35,11 @@ logging.basicConfig(
 )
 
 
-# ---------------------------
-# EXTRACCIÓN DE CIUDAD
-# ---------------------------
 
+# EXTRACCIÓN DE CIUDAD
 def extraer_ciudad(texto_usuario: str) -> str:
-    """
-    Extrae el nombre de una ciudad del texto del usuario.
-    Usa expresiones regulares y spaCy como respaldo.
-    """
+
+    # Extrae el nombre de una ciudad del texto del usuario. Usa expresiones regulares y spaCy como respaldo.
     texto_usuario = texto_usuario.strip()
     palabras_no_ciudad = r"\b(hoy|mañana|ayer|esta noche|esta mañana|esta tarde|tiempo|clima|dime|hace|que)\b"
 
@@ -72,15 +66,12 @@ def extraer_ciudad(texto_usuario: str) -> str:
     logging.warning("No se detectó ninguna ciudad.")
     return None
 
-# ---------------------------
-# CONSULTA DE CLIMA
-# ---------------------------
 
+# CONSULTA DE CLIMA
 @lru_cache(maxsize=64)
 def consultar_clima_api(ciudad: str) -> dict:
-    """
-    Consulta la API de OpenWeather y devuelve el resultado en formato JSON.
-    """
+
+    # Consulta la API de OpenWeather y devuelve el resultado en formato JSON.
     url = "http://api.openweathermap.org/data/2.5/weather"
     params = {"q": ciudad, "appid": API_KEY, "units": "metric", "lang": "es"}
 
@@ -99,18 +90,13 @@ def consultar_clima_api(ciudad: str) -> dict:
         raise RuntimeError("Error de conexión con el servicio de clima.")
 
 
-# ---------------------------
 # RESPUESTA DE CLIMA
-# ---------------------------
-
 def obtener_clima(texto_usuario: str, tono: str = "neutro") -> str:
-    """
-    Procesa el texto del usuario, obtiene el clima y devuelve una respuesta natural.
-    """
+
+    # Procesa el texto del usuario, obtiene el clima y devuelve una respuesta natural.
     ciudad = extraer_ciudad(texto_usuario)
     if not ciudad:
         return "No logré reconocer la ciudad 😅. Prueba con algo como '¿Qué clima hace en Madrid?'"
-
     try:
         datos = consultar_clima_api(ciudad)
         if datos.get("cod") != 200:
@@ -128,14 +114,11 @@ def obtener_clima(texto_usuario: str, tono: str = "neutro") -> str:
         return f"Lo siento 😔, ocurrió un problema: {str(e)}"
 
 
-# ---------------------------
-# FORMATO DE RESPUESTA
-# ---------------------------
 
+# FORMATO DE RESPUESTA
 def formatear_respuesta(ciudad, temp, desc, humedad, viento, recomendaciones, tono):
-    """
-    Devuelve un texto adaptado según el tono del asistente.
-    """
+
+    # Devuelve un texto adaptado según el tono del asistente.
     if tono == "amigable":
         return (f"En {ciudad} hay unos {temp}°C ☁️. El clima está {desc}, "
                 f"con {humedad}% de humedad y viento de {viento} m/s. {recomendaciones}")
@@ -146,16 +129,12 @@ def formatear_respuesta(ciudad, temp, desc, humedad, viento, recomendaciones, to
         return (f"{ciudad}: {temp}°C, {desc}, humedad {humedad}%, viento {viento} m/s. {recomendaciones}")
 
 
-# ---------------------------
+
 # RECOMENDACIONES DE ROPA
-# ---------------------------
-
 def recomendacion_ropa(temp: float, descripcion: str) -> str:
-    """
-    Sugiere ropa según temperatura y condiciones del clima.
-    """
-    sugerencias = []
 
+    # Sugiere ropa según temperatura y condiciones del clima.
+    sugerencias = []
     if temp <= 10:
         sugerencias.append("Abrígate bien 🧥")
     elif temp <= 20:
